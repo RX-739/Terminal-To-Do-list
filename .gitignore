@@ -1,0 +1,8 @@
+# Compiled C programs
+terminal
+
+# macOS debug symbols
+.dSYM/
+
+# macOS metadata
+.DS_Store
