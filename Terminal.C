@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 
 void todolist(void);
@@ -9,10 +10,10 @@ void Exit(void);
 
 int main(void){
 
-    int selection = 0;
+    int selection = 0; // A veriable 
 
 
-    while(selection != 4){
+    while(selection != 4){ //while slelection is not equal to 4, the program will continue to run
 
         printf("======================\n");
         printf("Terminal to do project\n");
@@ -29,7 +30,7 @@ int main(void){
             selection = -1;
             system("clear");
             continue;
-    }
+        }
 
         if(selection >= 1 && selection <= 3){
         printf("%d\n", selection);
@@ -59,14 +60,20 @@ int main(void){
 }
 
 void todolist(void){
+
     int selection = 1;
-    char reminder[100];
+    char reminders[2][100] = {0};
+    int rows = sizeof(reminders) / sizeof(reminders[0]);
     
     while(selection != 0){
+
         printf("======================\n");
         printf("      To-do list\n");
         printf("======================\n");
         printf("[0] Back\n");
+        printf("\n");
+        printf("Reminders: \n");
+
         if(scanf("%d", &selection) != 1){ // not a number
         while(getchar() != '\n'); // throw away the bad input
         selection = -1; // so it doesn't reuse the old value
@@ -79,7 +86,15 @@ void todolist(void){
         }
         else if(selection == 1){
             printf("Type a reminder (No more then 100 characters):");
-            scanf("%s", reminder);
+
+            for(int i = 0; i < rows; i++){
+                fgets(reminders[i], sizeof(reminders[i]), stdin); 
+                reminders[i][strlen(reminders[i]) - 1] = '\0';
+            }
+
+            for (int i = 0; i < rows; i++){
+                printf("%d. %s\n", i + 1, reminders[i]);
+            }
         }
     }
 
