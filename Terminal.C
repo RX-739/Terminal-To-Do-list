@@ -64,6 +64,8 @@ void todolist(void){
     int selection = 1;
     char reminders[2][100] = {0};
     int rows = sizeof(reminders) / sizeof(reminders[0]);
+    int reminderCount = 0;
+    int number = 1;
     
     while(selection != 0){
 
@@ -73,6 +75,14 @@ void todolist(void){
         printf("[0] Back\n");
         printf("\n");
         printf("Reminders: \n");
+        
+            for (int i = 0; i < rows; i++){
+
+                if (reminders[i][0] != '\0'){
+                    printf("%d. %s\n", number, reminders[i]);
+                    number++;
+                }
+            }
 
         if(scanf("%d", &selection) != 1){ // not a number
         while(getchar() != '\n'); // throw away the bad input
@@ -87,14 +97,11 @@ void todolist(void){
         else if(selection == 1){
             printf("Type a reminder (No more then 100 characters):");
 
-            for(int i = 0; i < rows; i++){
-                fgets(reminders[i], sizeof(reminders[i]), stdin); 
+            for(int i = 0; i < reminderCount; i++){
+                fgets(reminders[reminderCount], sizeof(reminders[reminderCount]), stdin); 
                 reminders[i][strlen(reminders[i]) - 1] = '\0';
             }
 
-            for (int i = 0; i < rows; i++){
-                printf("%d. %s\n", i + 1, reminders[i]);
-            }
         }
     }
 
