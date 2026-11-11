@@ -97,9 +97,10 @@ void todolist(void){
         else if(selection == 1){
             printf("Type a reminder (No more then 100 characters):");
 
-            for(int i = 0; i < reminderCount; i++){
-                fgets(reminders[reminderCount], sizeof(reminders[reminderCount]), stdin); 
-                reminders[i][strlen(reminders[i]) - 1] = '\0';
+            for (int i = 0; i < reminderCount; i++) {
+                if (fgets(reminders[i], sizeof(reminders[i]), stdin) != NULL) {
+                    reminders[i][strcspn(reminders[i], "\n")] = '\0';
+                }
             }
 
         }
