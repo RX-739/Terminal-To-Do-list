@@ -1,7 +1,8 @@
-TO-DO to do for the To-do project
+TO-DO to do for the To-do project X3
 
-[ ] Finish the reminder storage & printing 
-[ ] Clean up the code (A cleaner way to change it)
-[ ] Fix the double reminder bug (When writing "1(Then words)" then the reminder, it prints both)
-[ ] Fix the "Type a reminder" with the todo list text bug.
+[ ] Finish the reminder storage
+[ ] Add reminder deletion
+[ ] Shift the numbers after you delete it
+[ ] Improve the input handeling 
+[ ] PERMINANT reminder storage. (Yayyyy)
 [ ] -

@@ -62,7 +62,7 @@ int main(void){
 void todolist(void){
 
     int selection = 1;
-    char reminders[2][100] = {0};
+    char reminders[10][101] = {0};
     int rows = sizeof(reminders) / sizeof(reminders[0]);
     int reminderCount = 0;
     int number = 1;
@@ -73,8 +73,12 @@ void todolist(void){
         printf("      To-do list\n");
         printf("======================\n");
         printf("[0] Back\n");
+        printf("[1] Add a reminder\n");
+        printf("[2] Delete a reminder\n");
         printf("\n");
         printf("Reminders: \n");
+
+            number = 1;
         
             for (int i = 0; i < rows; i++){
 
@@ -85,24 +89,38 @@ void todolist(void){
             }
 
         if(scanf("%d", &selection) != 1){ // not a number
-        while(getchar() != '\n'); // throw away the bad input
-        selection = -1; // so it doesn't reuse the old value
-        continue; // redraw the menu
+            while(getchar() != '\n'); // throw away the bad input
+            selection = -1; // so it doesn't reuse the old value
+            continue; // redraw the menu
         }
+
+        while(getchar() != '\n' && !feof(stdin));
 
         if(selection == 0){
             system("clear");
             return;
         }
-        else if(selection == 1){
-            printf("Type a reminder (No more then 100 characters):");
 
-            for (int i = 0; i < reminderCount; i++) {
-                if (fgets(reminders[i], sizeof(reminders[i]), stdin) != NULL) {
-                    reminders[i][strcspn(reminders[i], "\n")] = '\0';
+        else if(selection == 1){
+
+            if (reminderCount < rows){
+                printf("Type a reminder (No more then 100 characters): ");
+
+
+                if (fgets(reminders[reminderCount], 101, stdin) != NULL) {
+                    reminders[reminderCount][strcspn(reminders[reminderCount], "\n")] = '\0';
+                    reminderCount++;
+
                 }
             }
+            else{
+                    printf("Reminder list is full!\n");
+                }
 
+        }
+
+        else if (selection == 2){
+            printf("Meow\n");
         }
     }
 
