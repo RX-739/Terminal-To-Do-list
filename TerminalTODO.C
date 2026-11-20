@@ -96,14 +96,13 @@ void todolist(void){
 
         while(getchar() != '\n' && !feof(stdin));
 
-        if(selection == 0){
-            system("clear");
-            return;
-        }
-
-        else if(selection == 1){
-
-            if (reminderCount < rows){
+        switch(selection) {
+            case 0:
+                system("clear");
+                return;
+                break;
+            case 1:
+                if(reminderCount<rows) {
                 printf("Type a reminder (No more then 100 characters): ");
 
 
@@ -117,14 +116,15 @@ void todolist(void){
                     printf("Reminder list is full!\n");
                 }
 
-        }
-
-        else if (selection == 2){
-            printf("Meow\n");
+ 
+                break;
+            case 2:
+                printf("TODO\n");
+                break;
+            }
         }
     }
 
-}
 
 void About(void){
     int selection = 0;
