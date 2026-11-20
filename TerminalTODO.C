@@ -66,6 +66,7 @@ void todolist(void){
     int rows = sizeof(reminders) / sizeof(reminders[0]);
     int reminderCount = 0;
     int number = 1;
+    int deleteSelection;
     
     while(selection != 0){
 
@@ -119,7 +120,16 @@ void todolist(void){
  
                 break;
             case 2:
-                printf("TODO\n");
+                // TODO: Implement reminder deletion
+                printf("Reminder deletion is not implimented yet. Sorry\n");
+
+                // printf("What reminder do you want to delete?\n");
+                // printf("Number: ");
+
+                // for (int i = deleteSelection - 1; i < reminderCount - 1; i++){
+
+                
+                // }
                 break;
             }
         }
