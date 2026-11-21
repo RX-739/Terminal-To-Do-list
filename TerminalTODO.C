@@ -36,14 +36,16 @@ int main(void){
         printf("%d\n", selection);
         system("clear");
 
-        if(selection == 1){
-            todolist();
-        }
-        else if(selection == 2){
-            About();
-        }
-        else if(selection == 3){
-            TEST();
+        switch(selection){
+            case 1:
+                todolist();
+                break;
+            case 2:
+                About();
+                break;
+            case 3:
+                TEST();
+                break;
         }
     }
 
@@ -120,22 +122,25 @@ void todolist(void){
  
                 break;
             case 2:
-                // TODO: Implement reminder deletion
-                printf("Reminder deletion is not implimented yet. Sorry\n");
-
-                // printf("What reminder do you want to delete?\n");
-                // printf("Number: ");
-
-                // for (int i = deleteSelection - 1; i < reminderCount - 1; i++){
-
+                // TODO: Implement reminder deletion 
+                if(reminderCount<rows) {
+                    printf("What reminder do you want to delete?\n");
+                    printf("Number: ");
                 
-                // }
+
+                for (int i = deleteSelection - 1; i < reminderCount - 1; i++){
+
+                        if (fgets(reminders[reminderCount], 101, stdin) != NULL) {
+                        reminders[reminderCount][strcspn(reminders[reminderCount], "\n")] = '\0';
+                        reminderCount--;
+                    }
                 break;
+                }
             }
         }
     }
 
-
+}
 void About(void){
     int selection = 0;
     
