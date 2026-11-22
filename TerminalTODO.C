@@ -123,20 +123,34 @@ void todolist(void){
                 break;
             case 2:
                 // TODO: Implement reminder deletion 
-                if(reminderCount<rows) {
+                if(reminderCount > 0) {
                     printf("What reminder do you want to delete?\n");
                     printf("Number: ");
-                
 
-                for (int i = deleteSelection - 1; i < reminderCount - 1; i++){
-
-                        if (fgets(reminders[reminderCount], 101, stdin) != NULL) {
-                        reminders[reminderCount][strcspn(reminders[reminderCount], "\n")] = '\0';
-                        reminderCount--;
+                    if(scanf("%d", &deleteSelection) != 1){ 
+                        while(getchar() != '\n'); // throw away the bad input
+                        continue; // redraw the menu
                     }
-                break;
-                }
+                    // Clear input buffer
+                    if (deleteSelection >= 1 && deleteSelection <= reminderCount){
+
+                        for (int i = deleteSelection - 1; i < reminderCount - 1; i++){
+                            strcpy(reminders[i], reminders[i + 1]);
+                        }
+                    reminderCount--;
+                    reminders[reminderCount][0] = '\0';
+
+                    }
+                    else {
+                        printf("TEST");
+                    }
+                
             }
+            else {
+                printf("TEST2");
+            }
+            break;
+
         }
     }
 
