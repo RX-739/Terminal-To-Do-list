@@ -1,12 +1,24 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
+#include <time.h>
+#include <stdbool.h>
+#include <unistd.h>
+#include <sys/select.h>
 
 void todolist(void);
 void About(void);
-void TEST(void);
+void TimeAndDate(void);
 void Exit(void);
+
+static int input_ready(void) {
+    struct timeval tv = {0, 0};
+    fd_set fds;
+    FD_ZERO(&fds);
+    FD_SET(STDIN_FILENO, &fds);
+    return select(STDIN_FILENO + 1, &fds, NULL, NULL, &tv) > 0;
+}
+
 
 int main(void){
 
@@ -21,7 +33,7 @@ int main(void){
         printf("\n");
         printf("[1] To-do list\n");
         printf("[2] About\n");
-        printf("[3] TEST\n");
+        printf("[3] Time & date\n");
         printf("[4] Exit\n");
 
 
@@ -44,7 +56,7 @@ int main(void){
                 About();
                 break;
             case 3:
-                TEST();
+                TimeAndDate();
                 break;
         }
     }
@@ -64,9 +76,9 @@ int main(void){
 void todolist(void){
 
     int selection = 1;
-    char reminders[10][101] = {0};
+    static char reminders[10][101] = {0};
     int rows = sizeof(reminders) / sizeof(reminders[0]);
-    int reminderCount = 0;
+    static int reminderCount = 0;
     int number = 1;
     int deleteSelection;
     
@@ -142,12 +154,12 @@ void todolist(void){
 
                     }
                     else {
-                        printf("TEST");
+                        printf("Invalid reminder number\n");
                     }
                 
             }
             else {
-                printf("TEST2");
+                printf("There are no reminders to delete!\n");
             }
             break;
 
@@ -163,6 +175,16 @@ void About(void){
     printf("      About\n");
     printf("======================\n");
     printf("[0] Back\n");
+    printf("\n");
+    printf("Welcome to the Terminal to-do project!\n");
+    printf("\n");
+    printf("This is my firt project that im doing that\n");
+    printf("involved minimal help from outside sources,\n");
+    printf("and is my first github project!\n");
+    printf("I plan to make MANY more projects that are more\n");
+    printf("thought out than this, but this a good way to start :3\n");
+    printf("\n");
+    printf("Hope you like it! :3\n");
     scanf("%d", &selection);
 
     if(selection == 0){
@@ -171,21 +193,48 @@ void About(void){
     }
 }
 
-void TEST(void){
-    int selection = 0;
 
+void TimeAndDate(void) {
+   int selection = -1;
 
     printf("======================\n");
-    printf("      TEST\n");
+    printf("    Time and date\n");
     printf("======================\n");
     printf("[0] Back\n");
-    scanf("%d", &selection);
+    printf("\n   DATE       TIME\n");
 
-    if(selection == 0){
-        system("clear");
-        return;
+    time_t rawtime = 0;
+    struct tm *pTime = NULL;
+
+    while (true) {
+        time(&rawtime);
+        pTime = localtime(&rawtime);
+
+        printf("\r%02d/%02d/%02d   %02d:%02d:%02d",
+               pTime->tm_mon + 1,
+               pTime->tm_mday,
+               pTime->tm_year % 100,
+               pTime->tm_hour,
+               pTime->tm_min,
+               pTime->tm_sec);
+        fflush(stdout);
+
+        /* Only call scanf once the user has typed something and hit Enter */
+        if (input_ready()) {
+            if (scanf("%d", &selection) == 1 && selection == 0) {
+                break;
+            }
+            /* Clear any invalid text if they didn't type 0 */
+            int c;
+            while ((c = getchar()) != '\n' && c != EOF) {}
+        }
+
+        usleep(200000);
     }
+
+    system("clear");
 }
+
 
 void Exit(void){
     printf("Exiting To do list...");
